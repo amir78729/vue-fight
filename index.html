@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>player2 Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">PLAYER1(you)</h1>
+            <div class="health-bar">
+                <div class="health-bar text-center"
+                     :class="{'health-bar-very-strong': player1Health>=80,
+                     'health-bar-strong': 80>player1Health && player1Health>=60,
+                     'health-bar-medium': 60>player1Health && player1Health>=40,
+                     'health-bar-weak': 40>player1Health && player1Health>=20,
+                     'health-bar-very-weak': 20>player1Health}"
+                     style=" margin: 0;"
+                     :style="{width: player1Health + '%'}">
+                    {{ player1Health }}%
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">PLAYER2</h1>
+            <div class="health-bar">
+                <div class="health-bar text-center"
+                     :class="{'health-bar-very-strong': player2Health>=80,
+                     'health-bar-strong': 80>player2Health && player2Health>=60,
+                     'health-bar-medium': 60>player2Health && player2Health>=40,
+                     'health-bar-weak': 40>player2Health && player2Health>=20,
+                     'health-bar-very-weak': 20>player2Health}"
+                     style=" margin: 0;"
+                     :style="{width: player2Health + '%'}">
+                    {{ player2Health }}%
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls" v-if="!gameIsRunning">
+        <div class="small-12 columns">
+            <button id="start-game" @click="startGame" style="width: 30%;">NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-else>
+        <div class="small-12 columns">
+            <button id="attack" @click="attack">ATTACK</button>
+            <button id="special-attack" @click="specialAttack">HARD ATTACK</button>
+            <button id="heal" @click="heal">HEAL</button>
+            <button id="give-up" @click="giveUp">GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log" v-if="turns.length > 0" >
+        <div class="small-12 columns"> 
+            <ul>
+                <li v-for="turn in turns" :class="{'player1-turn':turn.isplayer1,'player2-turn':!turn.isplayer1}">
+                    {{ turn.text }}
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
